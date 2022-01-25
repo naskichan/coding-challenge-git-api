@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import rateLimit from 'axios-rate-limit'
 import './App.css'
 import User from './components/User'
 import styled from '@emotion/styled'
@@ -7,6 +8,7 @@ import styled from '@emotion/styled'
 function App() {
   const [users, setUsers] = useState([])
   const [favoritedUsers, setFavoritedUsers] = useState([])
+  const http = rateLimit(axios.create(), {maxRequests: 10, perMilliseconds: 60000})
   function handleFavorize(user) {
     console.log('favorite', user)
     if(favoritedUsers.includes(user)) {
@@ -19,7 +21,7 @@ function App() {
   }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
-      axios.get(`https://api.github.com/search/users?q=defunkt`)
+      http.get('https://api.github.com/search/users?q='+searchText)
       .then(res => {
         setUsers(res.data.items)
       })
