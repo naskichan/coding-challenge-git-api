@@ -10,7 +10,7 @@ function User({props}) {
             <p>Username: {props.login}</p>
             <p>ID: {props.id}</p>
         </InformationWrapper>
-        <Button label="Hello World" onClick={handleClick}/>
+        <Button label="Favorize" onClick={handleClick}/>
     </MainWrapper>
     )
 }
