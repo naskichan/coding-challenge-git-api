@@ -6,6 +6,10 @@ import styled from '@emotion/styled'
 
 function App() {
   const [users, setUsers] = useState([])
+  let [favoritedUsers, setFavoritedUsers] = useState([])
+  function handleFavorize(user) {
+    console.log('user', user, 'wants to be favorite')
+  }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
       axios.get(`https://api.github.com/search/users?q=defunkt`)
@@ -20,8 +24,12 @@ function App() {
     <Page>
       <p>Search for a git user</p>
       <Input onChange={event => handleChange(event.target.value)} />
-      {users.map(user => (
+      <p>You have {favoritedUsers.length} favorited Users</p>
+      {favoritedUsers.map (user => (
         <User data={user}/>
+      ))}
+      {users.map(user => (
+        <User data={user} onClick={() => {handleFavorize(user)}}/>
       ))}
     </Page>
   );
