@@ -52,7 +52,7 @@ function App() {
       <Input value={query} onChange={event => setQuery(event.target.value)} />
       <p>You have {favoritedUsers.length} favorited Users</p>
       {favoritedUsers.map(user => (
-        <User data={user} onClick={() => {handleFavorize(user)}}/>
+        <User data={user} favorize={true} onClick={() => {handleFavorize(user)}}/>
       ))}
       <p>Your search results</p>
       <InfiniteScroll
@@ -61,7 +61,7 @@ function App() {
       hasMore={true}
       >
       {users.map(user => (
-        <User data={user} onClick={() => {handleFavorize(user)}}/>
+        <User data={user} favorize={false} onClick={() => {handleFavorize(user)}}/>
       ))}
 
       </InfiniteScroll>
