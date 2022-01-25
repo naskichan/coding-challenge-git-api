@@ -1,7 +1,7 @@
-function Button({props}) {
+function Button({label}) {
     return (
         <button>
-            {props.label}
+            {label}
         </button>
     )
 }
