@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import Button from './Button'
+import Image from './Image'
 function User(props) {
     const [opened, setOpened] = useState(false)
     const toggleOpen = () => setOpened(value => !value)
@@ -39,10 +40,6 @@ const OverviewWrapper = styled.div`
 const InformationWrapper = styled.div`
     display: flex;
     flex-direction: column;
-`
-const Image = styled.img`
-    object-fit: cover;
-    max-width: 128px;
 `
 const ImageWrapper = styled.div`
     overflow: hidden;
