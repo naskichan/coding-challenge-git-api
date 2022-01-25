@@ -5,7 +5,7 @@ import User from './components/User'
 import styled from '@emotion/styled'
 
 function App() {
-  const [users, setUsers] = useState('')
+  const [users, setUsers] = useState([])
   function handleChange(searchText) {
     if(searchText.length >= 3) {
       axios.get(`https://api.github.com/search/users?q=defunkt`)
