@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import rateLimit from 'axios-rate-limit'
 import './App.css'
@@ -6,9 +6,15 @@ import User from './components/User'
 import styled from '@emotion/styled'
 
 function App() {
+  const [query, setQuery] = useState('')
   const [users, setUsers] = useState([])
   const [favoritedUsers, setFavoritedUsers] = useState([])
   const http = rateLimit(axios.create(), {maxRequests: 10, perMilliseconds: 60000})
+  
+  useEffect(() => {
+    const typingTimeout = setTimeout(() => handleChange(query), 500)
+    return () => clearTimeout(typingTimeout)
+  }, [query])
   function handleFavorize(user) {
     console.log('favorite', user)
     if(favoritedUsers.includes(user)) {
@@ -21,6 +27,7 @@ function App() {
   }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
+      console.log('sending a request')
       http.get('https://api.github.com/search/users?q='+searchText)
       .then(res => {
         setUsers(res.data.items)
@@ -32,7 +39,7 @@ function App() {
   return (
     <Page>
       <p>Search for a git user</p>
-      <Input onChange={event => handleChange(event.target.value)} />
+      <Input value={query} onChange={event => setQuery(event.target.value)} />
       <p>You have {favoritedUsers.length} favorited Users</p>
       {favoritedUsers.map(user => (
         <User data={user} onClick={() => {handleFavorize(user)}}/>
