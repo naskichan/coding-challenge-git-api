@@ -7,14 +7,16 @@ function User(props) {
     const toggleOpen = () => setOpened(value => !value)
     return (
     <MainWrapper>
-        <OverviewWrapper onClick={toggleOpen}>
-            <ImageWrapper>
-                <Image src={props.data.avatar_url} alt='avatar' />
-            </ImageWrapper>
-            <InformationWrapper>
-                <p>Username: {props.data.login}</p>
-                <p>ID: {props.data.id}</p>
-            </InformationWrapper>
+        <OverviewWrapper>
+            <ClickWrapper onClick={toggleOpen}>
+                <ImageWrapper>
+                    <Image src={props.data.avatar_url} alt='avatar' />
+                </ImageWrapper>
+                <InformationWrapper>
+                    <p>Username: {props.data.login}</p>
+                    <p>ID: {props.data.id}</p>
+                </InformationWrapper>
+            </ClickWrapper>
             <ButtonWrapper>
                 <Button label="Favorize" fav={props.fav} onClick={props.onClick}/>
             </ButtonWrapper>
@@ -40,6 +42,17 @@ const OverviewWrapper = styled.div`
 const InformationWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    margin-left: 1rem;
+    p{
+        padding: 1rem;
+    }
+`
+const ClickWrapper = styled.div`
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
 `
 const ImageWrapper = styled.div`
     overflow: hidden;
@@ -61,11 +74,10 @@ const DetailWrapper = styled.div`
 const MainWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 1rem;
-    -webkit-box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17); 
-    box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17);
+    margin: 1rem 1rem 1rem 1rem;
+    -webkit-box-shadow: 2px 10px 8px 5px rgba(0,0,0,0.17); 
+    box-shadow: 2px 10px 8px 5px rgba(0,0,0,0.17);
     border-radius: 1rem;
-    max-width: 50%;
 
 `
 const Link = styled.a`

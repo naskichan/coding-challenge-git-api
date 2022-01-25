@@ -47,34 +47,50 @@ function App() {
     handleChange(query)
   }
   return (
-    <Page>
-      <p>Search for a git user</p>
-      <Input value={query} onChange={event => setQuery(event.target.value)} />
-      <p>You have {favoritedUsers.length} favorited Users</p>
-      {favoritedUsers.map(user => (
-        <User data={user} fav={true} onClick={() => {handleFavorize(user)}}/>
-      ))}
-      <p>Your search results</p>
-      <InfiniteScroll
-      dataLength={users.length}
-      next={moreUsers}
-      hasMore={true}
-      >
-      {users.map(user => (
-        <User data={user} fav={false} onClick={() => {handleFavorize(user)}}/>
-      ))}
+    <HorizontalWrapper>
+      <Page>
+        <p>Search for a git user</p>
+        <Input placeholder="Search for a github name" value={query} onChange={event => setQuery(event.target.value)} />
+        <p>You have {favoritedUsers.length} favorited Users</p>
+        {favoritedUsers.map(user => (
+          <User data={user} fav={true} onClick={() => {handleFavorize(user)}}/>
+          ))}
+        <p>Your search results</p>
+        <InfiniteScroll
+        dataLength={users.length}
+        next={moreUsers}
+        hasMore={true}
+        >
+        {users.map(user => (
+          <User data={user} fav={false} onClick={() => {handleFavorize(user)}}/>
+          ))}
 
-      </InfiniteScroll>
-    </Page>
+        </InfiniteScroll>
+      </Page>
+    </HorizontalWrapper>
   );
 }
 const Page = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 5rem;
   font-size: 1.5rem;
+  >p{
+    margin: 1rem;
+  }
 `
 const Input = styled.input`
-  width: 50%;
+  all: unset;
+  width: 48rem;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  align-self: center;
+  -webkit-box-shadow: 2px 10px 8px 5px rgba(0,0,0,0.17); 
+    box-shadow: 2px 10px 8px 5px rgba(0,0,0,0.17);
+`
+const HorizontalWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `
 export default App;
