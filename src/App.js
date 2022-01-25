@@ -21,7 +21,7 @@ function App() {
       <p>Search for a git user</p>
       <Input onChange={event => handleChange(event.target.value)} />
       {users.map(user => (
-        <User props={user}/>
+        <User data={user}/>
       ))}
     </Page>
   );

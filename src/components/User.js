@@ -1,16 +1,13 @@
 import styled from '@emotion/styled'
 import Button from './Button'
-function User({props}) {
-    function handleClick() {
-        console.log('favorite')
-    }
+function User(props) {
     return (
     <MainWrapper>
         <InformationWrapper>
-            <p>Username: {props.login}</p>
-            <p>ID: {props.id}</p>
+            <p>Username: {props.data.login}</p>
+            <p>ID: {props.data.id}</p>
         </InformationWrapper>
-        <Button label="Favorize" onClick={handleClick}/>
+        <Button label="Favorize" onClick={props.onClick}/>
     </MainWrapper>
     )
 }
