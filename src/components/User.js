@@ -3,6 +3,9 @@ import Button from './Button'
 function User(props) {
     return (
     <MainWrapper>
+        <ImageWrapper>
+            <Image src={props.data.avatar_url} alt='avatar' />
+        </ImageWrapper>
         <InformationWrapper>
             <p>Username: {props.data.login}</p>
             <p>ID: {props.data.id}</p>
@@ -28,5 +31,14 @@ const MainWrapper = styled.div`
 const InformationWrapper = styled.div`
     display: flex;
     flex-direction: column;
+`
+const Image = styled.img`
+    object-fit: cover;
+    max-width: 128px;
+`
+const ImageWrapper = styled.div`
+    overflow: hidden;
+    max-height: 128px;
+    border-radius: 1rem 0rem 0rem 1rem;
 `
 export default User
