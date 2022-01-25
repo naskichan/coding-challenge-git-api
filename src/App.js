@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import rateLimit from 'axios-rate-limit'
 import './App.css'
 import User from './components/User'
 import styled from '@emotion/styled'
@@ -11,7 +10,6 @@ function App() {
   const [query, setQuery] = useState('')
   const [users, setUsers] = useState([])
   const [favoritedUsers, setFavoritedUsers] = useState([])
-  const http = rateLimit(axios.create(), {maxRequests: 8, perMilliseconds: 60000})
   
   useEffect(() => {
     const typingTimeout = setTimeout(() => handleChange(query), 500)
@@ -30,11 +28,16 @@ function App() {
   }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
-      console.log('sending request', 'https://api.github.com/search/users?q='+searchText+'&page='+page)
-      http.get('https://api.github.com/search/users?q='+searchText+'&page='+page)
-      .then(res => {
-        setUsers(users => users.concat(res.data.items))
-        setPage(previousPage => previousPage + 1)
+      axios.get('https://api.github.com/rate_limit').then(res => {
+        if(res.data.resources.search.remaining > 0) {
+          axios.get('https://api.github.com/search/users?q='+searchText+'&page='+page)
+          .then(res => {
+            setUsers(users => users.concat(res.data.items))
+            setPage(previousPage => previousPage + 1)
+          })
+        } else {
+          console.log('client has been rate limited, please try again later')
+        }
       })
     } else {
       console.log('heya')
