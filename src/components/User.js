@@ -18,7 +18,12 @@ function User(props) {
                 <Button label="Favorize" onClick={props.onClick}/>
             </ButtonWrapper>
         </OverviewWrapper>
-        {opened ? <DetailWrapper>{props.data.login}</DetailWrapper>
+        {opened ? 
+        <DetailWrapper>
+            <Link href={props.data.html_url}>Github page</Link>
+            <Link href={props.data.repos_url}>Repositories</Link>
+            <p>This {props.data.type} is {props.data.site_admin ? "a" : "not a" } site admin</p>
+        </DetailWrapper>
         : null}
     </MainWrapper> 
     )
@@ -65,5 +70,8 @@ const MainWrapper = styled.div`
     border-radius: 1rem;
     max-width: 50%;
 
+`
+const Link = styled.a`
+    margin: 1.5rem;
 `
 export default User
