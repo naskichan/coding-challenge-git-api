@@ -1,30 +1,32 @@
+import { useState } from 'react'
 import styled from '@emotion/styled'
 import Button from './Button'
 function User(props) {
+    const [opened, setOpened] = useState(false)
+    const toggleOpen = () => setOpened(value => !value)
     return (
     <MainWrapper>
-        <ImageWrapper>
-            <Image src={props.data.avatar_url} alt='avatar' />
-        </ImageWrapper>
-        <InformationWrapper>
-            <p>Username: {props.data.login}</p>
-            <p>ID: {props.data.id}</p>
-        </InformationWrapper>
-        <ButtonWrapper>
-            <Button label="Favorize" onClick={props.onClick}/>
-        </ButtonWrapper>
-    </MainWrapper>
+        <OverviewWrapper onClick={toggleOpen}>
+            <ImageWrapper>
+                <Image src={props.data.avatar_url} alt='avatar' />
+            </ImageWrapper>
+            <InformationWrapper>
+                <p>Username: {props.data.login}</p>
+                <p>ID: {props.data.id}</p>
+            </InformationWrapper>
+            <ButtonWrapper>
+                <Button label="Favorize" onClick={props.onClick}/>
+            </ButtonWrapper>
+        </OverviewWrapper>
+        {opened ? <DetailWrapper>{props.data.login}</DetailWrapper>
+        : null}
+    </MainWrapper> 
     )
 }
-const MainWrapper = styled.div`
-    margin: 1rem;
-    -webkit-box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17); 
-    box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17);
-    border-radius: 1rem;
+const OverviewWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 50%;
     p{
         all: unset;
     }
@@ -47,5 +49,21 @@ const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+`
+const DetailWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem;
+`
+const MainWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    -webkit-box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17); 
+    box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17);
+    border-radius: 1rem;
+    max-width: 50%;
+
 `
 export default User
