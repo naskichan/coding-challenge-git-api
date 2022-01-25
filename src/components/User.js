@@ -10,7 +10,9 @@ function User(props) {
             <p>Username: {props.data.login}</p>
             <p>ID: {props.data.id}</p>
         </InformationWrapper>
-        <Button label="Favorize" onClick={props.onClick}/>
+        <ButtonWrapper>
+            <Button label="Favorize" onClick={props.onClick}/>
+        </ButtonWrapper>
     </MainWrapper>
     )
 }
@@ -18,7 +20,6 @@ const MainWrapper = styled.div`
     margin: 1rem;
     -webkit-box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17); 
     box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.17);
-    padding: 1rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
@@ -40,5 +41,11 @@ const ImageWrapper = styled.div`
     overflow: hidden;
     max-height: 128px;
     border-radius: 1rem 0rem 0rem 1rem;
+`
+const ButtonWrapper = styled.div`
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 export default User
