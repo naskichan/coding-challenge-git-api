@@ -34,14 +34,13 @@ function App() {
       http.get('https://api.github.com/search/users?q='+searchText+'&page='+page)
       .then(res => {
         setUsers(users => users.concat(res.data.items))
-
+        setPage(previousPage => previousPage + 1)
       })
     } else {
       console.log('heya')
     }
   }
   function moreUsers() {
-    setPage(prevPage => prevPage + 1) //not adding on first iteration
     handleChange(query)
   }
   return (
