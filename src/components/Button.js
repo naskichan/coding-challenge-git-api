@@ -1,7 +1,7 @@
-function Button({label}) {
+function Button(props) {
     return (
-        <button>
-            {label}
+        <button onClick={props.onClick}>
+            {props.label}
         </button>
     )
 }
