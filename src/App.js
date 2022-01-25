@@ -4,8 +4,10 @@ import rateLimit from 'axios-rate-limit'
 import './App.css'
 import User from './components/User'
 import styled from '@emotion/styled'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 function App() {
+  const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [users, setUsers] = useState([])
   const [favoritedUsers, setFavoritedUsers] = useState([])
@@ -15,6 +17,7 @@ function App() {
     const typingTimeout = setTimeout(() => handleChange(query), 500)
     return () => clearTimeout(typingTimeout)
   }, [query])
+
   function handleFavorize(user) {
     console.log('favorite', user)
     if(favoritedUsers.includes(user)) {
@@ -27,14 +30,19 @@ function App() {
   }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
-      console.log('sending a request')
-      http.get('https://api.github.com/search/users?q='+searchText)
+      console.log('sending request', 'https://api.github.com/search/users?q='+searchText+'&page='+page)
+      http.get('https://api.github.com/search/users?q='+searchText+'&page='+page)
       .then(res => {
-        setUsers(res.data.items)
+        setUsers(users => users.concat(res.data.items))
+
       })
     } else {
       console.log('heya')
     }
+  }
+  function moreUsers() {
+    setPage(prevPage => prevPage + 1) //not adding on first iteration
+    handleChange(query)
   }
   return (
     <Page>
@@ -45,9 +53,16 @@ function App() {
         <User data={user} onClick={() => {handleFavorize(user)}}/>
       ))}
       <p>Your search results</p>
+      <InfiniteScroll
+      dataLength={users.length}
+      next={moreUsers}
+      hasMore={true}
+      >
       {users.map(user => (
         <User data={user} onClick={() => {handleFavorize(user)}}/>
       ))}
+
+      </InfiniteScroll>
     </Page>
   );
 }
