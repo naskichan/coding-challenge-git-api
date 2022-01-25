@@ -3,12 +3,17 @@ import './App.css'
 import styled from '@emotion/styled'
 
 function App() {
-  let [searchText, setSearchText] = useState('');
+  function handleChange(searchText) {
+    if(searchText.length >= 3) {
+      console.log('works')
+    } else {
+      console.log('heya')
+    }
+  }
   return (
     <Page>
       <p>Hello World</p>
-      <Input onChange={event => setSearchText(event.target.value)} />
-      {searchText}
+      <Input onChange={event => handleChange(event.target.value)} />
     </Page>
   );
 }
