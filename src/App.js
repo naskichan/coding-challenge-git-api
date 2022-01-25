@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import './App.css'
+import User from './components/User'
 import styled from '@emotion/styled'
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <p>Search for a git user</p>
       <Input onChange={event => handleChange(event.target.value)} />
       {users.map(user => (
-        <User>{user.login}, {user.id}</User>
+        <User props={user}/>
       ))}
     </Page>
   );
@@ -34,8 +35,4 @@ const Page = styled.div`
 const Input = styled.input`
   width: 50%;
 `
-const User = styled.div`
-  margin: 1rem;
-`
-
 export default App;
