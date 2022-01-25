@@ -6,9 +6,16 @@ import styled from '@emotion/styled'
 
 function App() {
   const [users, setUsers] = useState([])
-  let [favoritedUsers, setFavoritedUsers] = useState([])
+  const [favoritedUsers, setFavoritedUsers] = useState([])
   function handleFavorize(user) {
-    console.log('user', user, 'wants to be favorite')
+    console.log('favorite', user)
+    if(favoritedUsers.includes(user)) {
+      const newList = favoritedUsers.filter((item) => item.id !== user.id)
+      setFavoritedUsers(newList)
+    } else {
+      console.log('user', user, 'wants to be favorite')
+      setFavoritedUsers(favoritedUsers => [...favoritedUsers, user])
+    }
   }
   function handleChange(searchText) {
     if(searchText.length >= 3) {
@@ -25,9 +32,10 @@ function App() {
       <p>Search for a git user</p>
       <Input onChange={event => handleChange(event.target.value)} />
       <p>You have {favoritedUsers.length} favorited Users</p>
-      {favoritedUsers.map (user => (
-        <User data={user}/>
+      {favoritedUsers.map(user => (
+        <User data={user} onClick={() => {handleFavorize(user)}}/>
       ))}
+      <p>Your search results</p>
       {users.map(user => (
         <User data={user} onClick={() => {handleFavorize(user)}}/>
       ))}
