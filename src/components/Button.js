@@ -4,10 +4,8 @@ import Image from './Image'
 function Button(props) {
     return (
         <ButtonWrapper onClick={props.onClick}>
-            {props.favorize ? 
-            <ButtonImage src='/images/star-filled.png' alt='star' /> :
-            <ButtonImage src='/images/star.png' alt='star' />
-        }
+            {props.fav ? <ButtonImage src='/images/star-filled.png' alt='star' /> :
+            <ButtonImage src='/images/star.png' alt='star' /> }
         </ButtonWrapper>
     )
 }

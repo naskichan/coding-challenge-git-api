@@ -16,7 +16,7 @@ function User(props) {
                 <p>ID: {props.data.id}</p>
             </InformationWrapper>
             <ButtonWrapper>
-                <Button label="Favorize" onClick={props.onClick}/>
+                <Button label="Favorize" fav={props.fav} onClick={props.onClick}/>
             </ButtonWrapper>
         </OverviewWrapper>
         {opened ? 
