@@ -12,7 +12,7 @@ function App() {
   const [favoritedUsers, setFavoritedUsers] = useState([])
   
   useEffect(() => {
-    const typingTimeout = setTimeout(() => handleChange(query), 500)
+    const typingTimeout = setTimeout(() => handleChange(query, false), 500)
     return () => clearTimeout(typingTimeout)
   }, [query])
 
@@ -26,14 +26,18 @@ function App() {
       setFavoritedUsers(favoritedUsers => [...favoritedUsers, user])
     }
   }
-  function handleChange(searchText) {
+  function handleChange(searchText, refresh) {
     if(searchText.length >= 3) {
       axios.get('https://api.github.com/rate_limit').then(res => {
         if(res.data.resources.search.remaining > 0) {
+          if(refresh) {
+           setUsers([])
+           setPage(1) 
+          }
           axios.get('https://api.github.com/search/users?q='+searchText+'&page='+page)
           .then(res => {
-            setUsers(users => users.concat(res.data.items))
-            setPage(previousPage => previousPage + 1)
+              setUsers(users => users.concat(res.data.items))
+              setPage(previousPage => previousPage + 1)
           })
         } else {
           console.log('client has been rate limited, please try again later')
@@ -44,7 +48,10 @@ function App() {
     }
   }
   function moreUsers() {
-    handleChange(query)
+    handleChange(query, false)
+  }
+  function refresh() {
+    handleChange(query, true)
   }
   return (
     <HorizontalWrapper>
@@ -60,6 +67,12 @@ function App() {
         dataLength={users.length}
         next={moreUsers}
         hasMore={true}
+        refreshFunction={refresh}
+        pullDownToRefresh
+        pullDownToRefreshThreshold={50}
+        pullDownToRefreshContent={
+          <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+        }
         >
         {users.map(user => (
           <User data={user} fav={false} onClick={() => {handleFavorize(user)}}/>
