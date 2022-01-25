@@ -49,7 +49,7 @@ function App() {
   return (
     <HorizontalWrapper>
       <Page>
-        <p>Search for a git user</p>
+        <h1>Coding challenge git repo</h1>
         <Input placeholder="Search for a github name" value={query} onChange={event => setQuery(event.target.value)} />
         <p>You have {favoritedUsers.length} favorited Users</p>
         {favoritedUsers.map(user => (
