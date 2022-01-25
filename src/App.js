@@ -9,7 +9,7 @@ function App() {
   const [query, setQuery] = useState('')
   const [users, setUsers] = useState([])
   const [favoritedUsers, setFavoritedUsers] = useState([])
-  const http = rateLimit(axios.create(), {maxRequests: 10, perMilliseconds: 60000})
+  const http = rateLimit(axios.create(), {maxRequests: 8, perMilliseconds: 60000})
   
   useEffect(() => {
     const typingTimeout = setTimeout(() => handleChange(query), 500)
