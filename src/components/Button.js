@@ -5,3 +5,5 @@ function Button({label}) {
         </button>
     )
 }
+
+export default Button
