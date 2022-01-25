@@ -12,6 +12,7 @@ function Button(props) {
 
 const ButtonWrapper = styled.div`
 height: 2rem;
+cursor: pointer;
 `
 const ButtonImage = styled.img`
 height: 100%;

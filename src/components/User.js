@@ -53,6 +53,7 @@ const ClickWrapper = styled.div`
     display: flex;
     flex-grow: 1;
     flex-direction: row;
+    cursor: pointer;
 `
 const ImageWrapper = styled.div`
     overflow: hidden;
